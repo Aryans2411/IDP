@@ -1,0 +1,61 @@
+from flask import Flask, request, jsonify
+import pickle
+import numpy as np
+from datetime import datetime, timedelta
+from flask_cors import CORS
+import os
+# Load the .env file
+
+# Initialize Flask app
+app = Flask(__name__)
+CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for React frontend
+
+# Load the trained model
+model_path = "C:\\Users\\hp\\Desktop\\IDP\\Fleet-Management\\Backend\\hhmodel.pkl"
+# model_path = "Backend\hhmodel.pkl" # Update to the correct path
+with open(model_path, 'rb') as file:
+    model = pickle.load(file)
+
+# Define constants
+THRESHOLD = 0.6  # Probability threshold for maintenance recommendation
+MAX_DAYS_TO_MAINTENANCE = 30  # Max possible days to maintenance when probability is 1.0
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        # Parse input data
+        data = request.get_json()
+        # print(data)
+        test_instance = np.array(list(data.values())).reshape(1, -1)
+        # print(test_instance)
+        # print(test_instance)
+        # Perform prediction
+        probability = model.predict_proba(test_instance)[0, 1]  # Probability for class 1
+        prediction = model.predict(test_instance)[0]  # Predicted class (0 or 1)
+
+        # Calculate days to maintenance
+        if probability > THRESHOLD:
+            days_to_maintenance = int(MAX_DAYS_TO_MAINTENANCE * probability)
+            maintenance_date = datetime.now() + timedelta(days=days_to_maintenance)
+            maintenance_date_str = maintenance_date.strftime('%Y-%m-%d')
+        else:
+            days_to_maintenance = None
+            maintenance_date_str = "No maintenance needed"
+
+        # Prepare response
+        response = {
+            'predicted_class': int(prediction),
+            'probability': float(probability),
+            'threshold': THRESHOLD,
+            'days_to_maintenance': days_to_maintenance,
+            'maintenance_date': maintenance_date_str,
+        }
+        print(response)
+        return jsonify(response)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
+# Run the app
+if __name__ == '__main__':
+    app.run(debug=True,port=5002)

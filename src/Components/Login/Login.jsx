@@ -61,14 +61,14 @@ export const Login = () => {
   };
 
   return (
-    <div className="  bg-gradient-to-br from-gray-900  via-gray-800 to-black min-h-screen">
-      <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-black min-h-screen flex items-center justify-center relative">
-        <div className="bg-white bg-opacity-10 backdrop-blur-md border border-gray-700 p-8 rounded-lg shadow-lg relative z-10 max-w-md w-full">
-          <h2 className="text-3xl font-extrabold text-center mb-6 text-white">
+    <div className="bg-gradient-to-br from-dark-950 via-dark-900 to-dark-800 min-h-screen">
+      <div className="bg-gradient-to-br from-dark-950 via-dark-900 to-dark-800 min-h-screen flex items-center justify-center relative">
+        <div className="bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl border border-dark-600/50 p-8 rounded-2xl shadow-2xl relative z-10 max-w-md w-full hover:shadow-primary-500/25 transition-all duration-500">
+          <h2 className="text-4xl font-extrabold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-400">
             Login
           </h2>
           {error && (
-            <div className="text-center bg-red-100 text-red-700 p-2 rounded mb-4">
+            <div className="text-center bg-gradient-to-r from-red-900/50 to-red-800/50 text-red-200 p-4 rounded-xl mb-6 border border-red-700/50">
               {error}
             </div>
           )}
@@ -76,12 +76,12 @@ export const Login = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-white font-medium mb-2"
+                className="block text-dark-200 font-medium mb-3"
               >
                 Email
               </label>
               <input
-                className="w-full bg-transparent text-white px-4 py-2 border border-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full bg-dark-700/50 text-white px-4 py-3 border border-dark-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition-all duration-300 placeholder-dark-400"
                 type="email"
                 name="email"
                 id="email"
@@ -94,12 +94,12 @@ export const Login = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-white font-medium mb-2"
+                className="block text-dark-200 font-medium mb-3"
               >
                 Password
               </label>
               <input
-                className="w-full bg-transparent text-white px-4 py-2 border border-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full bg-dark-700/50 text-white px-4 py-3 border border-dark-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition-all duration-300 placeholder-dark-400"
                 type="password"
                 name="password"
                 id="password"
@@ -113,17 +113,17 @@ export const Login = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 my-4 rounded-lg transition-colors duration-300 focus:ring-4 focus:ring-blue-300 focus:outline-none"
+                className="w-full bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 hover:from-primary-700 hover:via-secondary-700 hover:to-accent-700 text-white py-3 my-4 rounded-xl transition-all duration-300 focus:ring-4 focus:ring-primary-500/50 focus:outline-none hover:scale-105 hover:shadow-xl hover:shadow-primary-500/25"
               >
                 Login
               </button>
             </div>
           </form>
           <div
-            className="text-center mt-4 cursor-pointer text-blue-500 hover:text-blue-700"
+            className="text-center mt-6 cursor-pointer text-primary-400 hover:text-primary-300 transition-colors duration-200"
             onClick={() => navigate("/signup")}
           >
-            <h2>Need an account?</h2>
+            <h2 className="text-lg">Need an account?</h2>
           </div>
         </div>
       </div>

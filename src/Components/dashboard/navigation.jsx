@@ -24,12 +24,15 @@ export default function Navigation() {
     navigate("/");
   };
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure
+      as="nav"
+      className="bg-gradient-to-r from-dark-900 via-dark-800 to-dark-900 backdrop-blur-md border-b border-dark-700/50 shadow-xl"
+    >
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button */}
-            <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-dark-300 hover:bg-dark-700/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset transition-all duration-200">
               <span className="sr-only">Open main menu</span>
               <Bars3Icon
                 aria-hidden="true"
@@ -50,16 +53,16 @@ export default function Navigation() {
               />
             </div>
             <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
+              <div className="flex space-x-1">
                 {initialNavigation.map((item) => (
                   <Link
                     key={item.key}
                     to={item.href}
                     className={classNames(
                       location.pathname === item.href
-                        ? "bg-gray-900 text-white" // Active link styling
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "rounded-md px-3 py-2 text-sm font-medium"
+                        ? "bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg shadow-primary-500/25" // Active link styling
+                        : "text-dark-300 hover:bg-dark-700/50 hover:text-white hover:shadow-md",
+                      "rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 transform hover:scale-105"
                     )}
                   >
                     {item.name}
@@ -72,23 +75,23 @@ export default function Navigation() {
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">
               <div>
-                <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <Menu.Button className="relative flex rounded-full bg-gradient-to-r from-primary-600 to-secondary-600 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-dark-800 transition-all duration-200 hover:shadow-lg hover:shadow-primary-500/25">
                   <span className="sr-only">Open user menu</span>
                   <img
                     alt=""
                     src="https://i.pinimg.com/736x/d6/f1/8d/d6f18dcdfc48ef9c283fa8e68a5c7a9e.jpg"
-                    className="h-8 w-8 rounded-full"
+                    className="h-8 w-8 rounded-full ring-2 ring-white/20"
                   />
                 </Menu.Button>
               </div>
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none">
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-dark-800/95 backdrop-blur-md py-1 shadow-2xl ring-1 ring-dark-600/50 focus:outline-none border border-dark-700/50">
                 <Menu.Item>
                   {({ active }) => (
                     <a
                       href="#"
                       className={classNames(
-                        active ? "bg-gray-100" : "",
-                        "block px-4 py-2 text-sm text-gray-700"
+                        active ? "bg-dark-700/50 text-white" : "text-dark-300",
+                        "block px-4 py-2 text-sm transition-colors duration-200"
                       )}
                     >
                       Your Profile
@@ -100,8 +103,8 @@ export default function Navigation() {
                     <a
                       href="#"
                       className={classNames(
-                        active ? "bg-gray-100" : "",
-                        "block px-4 py-2 text-sm text-gray-700"
+                        active ? "bg-dark-700/50 text-white" : "text-dark-300",
+                        "block px-4 py-2 text-sm transition-colors duration-200"
                       )}
                     >
                       Settings
@@ -113,8 +116,8 @@ export default function Navigation() {
                     <a
                       href="#"
                       className={classNames(
-                        active ? "bg-gray-100" : "",
-                        "block px-4 py-2 text-sm text-gray-700"
+                        active ? "bg-red-600/20 text-red-400" : "text-dark-300",
+                        "block px-4 py-2 text-sm transition-colors duration-200"
                       )}
                       onClick={handleLogout}
                     >
@@ -137,9 +140,9 @@ export default function Navigation() {
               to={item.href}
               className={classNames(
                 location.pathname === item.href
-                  ? "bg-gray-900 text-white" // Active link styling
-                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                "block rounded-md px-3 py-2 text-base font-medium"
+                  ? "bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg" // Active link styling
+                  : "text-dark-300 hover:bg-dark-700/50 hover:text-white",
+                "block rounded-lg px-3 py-2 text-base font-medium transition-all duration-200"
               )}
             >
               {item.name}

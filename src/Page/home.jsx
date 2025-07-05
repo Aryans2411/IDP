@@ -372,34 +372,36 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-black min-h-screen flex flex-col">
+    <div className="bg-gradient-to-br from-dark-950 via-dark-900 to-dark-800 min-h-screen flex flex-col">
       <Navigation />
-      <div className="mt-6 p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="mt-8 p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {/* Dashboard Cards */}
-        <div className="card">
-          <div className="p-6 bg-gradient-to-b from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer">
-            <div className="flex items-center gap-2">
-              <FaCoins className="text-3xl text-green-400" />
+        <div className="card animate-fade-in">
+          <div className="p-6 bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl text-white rounded-2xl shadow-2xl hover:shadow-primary-500/25 hover:scale-105 transition-all duration-300 cursor-pointer border border-dark-600/50">
+            <div className="flex items-center gap-3">
+              <FaCoins className="text-3xl text-accent-400" />
               <h3 className="text-xl font-semibold mb-2">Profit</h3>
             </div>
-            <p className="text-3xl font-bold text-green-400">
+            <p className="text-3xl font-bold text-accent-400">
               ₹{totalrevenue - cost}
             </p>
           </div>
         </div>
-        <div className="card">
-          <div className="p-6 bg-gradient-to-b from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer">
-            <div className="flex items-center gap-2">
-              <FaChartLine className="text-3xl text-blue-400" />
+        <div className="card animate-fade-in">
+          <div className="p-6 bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl text-white rounded-2xl shadow-2xl hover:shadow-primary-500/25 hover:scale-105 transition-all duration-300 cursor-pointer border border-dark-600/50">
+            <div className="flex items-center gap-3">
+              <FaChartLine className="text-3xl text-primary-400" />
 
               <h3 className="text-xl font-semibold mb-2">Revenue</h3>
             </div>
-            <p className="text-3xl font-bold text-blue-400">₹{totalrevenue}</p>
+            <p className="text-3xl font-bold text-primary-400">
+              ₹{totalrevenue}
+            </p>
           </div>
         </div>
-        <div className="card">
-          <div className="p-6 bg-gradient-to-b from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer">
-            <div className="flex items-center gap-2">
+        <div className="card animate-fade-in">
+          <div className="p-6 bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl text-white rounded-2xl shadow-2xl hover:shadow-red-500/25 hover:scale-105 transition-all duration-300 cursor-pointer border border-dark-600/50">
+            <div className="flex items-center gap-3">
               <FaChartLine className="text-3xl text-red-400" />
               <h3 className="text-xl font-semibold mb-2">Cost</h3>
             </div>
@@ -408,27 +410,29 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="card">
-          <div className="p-6 bg-gradient-to-b from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer">
-            <div className="flex items-center gap-2">
-              <FaCar className="text-3xl text-yellow-400" />
+        <div className="card animate-fade-in">
+          <div className="p-6 bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl text-white rounded-2xl shadow-2xl hover:shadow-secondary-500/25 hover:scale-105 transition-all duration-300 cursor-pointer border border-dark-600/50">
+            <div className="flex items-center gap-3">
+              <FaCar className="text-3xl text-secondary-400" />
               <h3 className="text-xl font-semibold mb-2">Total Vehicles</h3>
             </div>
-            <p className="text-3xl font-bold text-yellow-400">{vehiclesFreq}</p>
+            <p className="text-3xl font-bold text-secondary-400">
+              {vehiclesFreq}
+            </p>
           </div>
         </div>
-        <div className="card">
-          <div className="p-6 bg-gradient-to-b from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer">
-            <div className="flex items-center gap-2">
-              <FaCar className="text-3xl text-teal-400" />
+        <div className="card animate-fade-in">
+          <div className="p-6 bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl text-white rounded-2xl shadow-2xl hover:shadow-accent-500/25 hover:scale-105 transition-all duration-300 cursor-pointer border border-dark-600/50">
+            <div className="flex items-center gap-3">
+              <FaCar className="text-3xl text-accent-400" />
               <h3 className="text-xl font-semibold mb-2">Active Vehicles</h3>
             </div>
-            <p className="text-3xl font-bold text-teal-400">{actvvehicle}</p>
+            <p className="text-3xl font-bold text-accent-400">{actvvehicle}</p>
           </div>
         </div>
-        <div className="card">
-          <div className="p-6 bg-gradient-to-b from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer">
-            <div className="flex items-center gap-2">
+        <div className="card animate-fade-in">
+          <div className="p-6 bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl text-white rounded-2xl shadow-2xl hover:shadow-orange-500/25 hover:scale-105 transition-all duration-300 cursor-pointer border border-dark-600/50">
+            <div className="flex items-center gap-3">
               <FaWrench className="text-3xl text-orange-400" />
               <h3 className="text-xl font-semibold mb-2">
                 Vehicles in Maintenance
@@ -437,9 +441,9 @@ export default function Home() {
             <p className="text-3xl font-bold text-orange-400">{maintv}</p>
           </div>
         </div>
-        <div className="card">
-          <div className="p-6 bg-gradient-to-b from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer">
-            <div className="flex items-center gap-2">
+        <div className="card animate-fade-in">
+          <div className="p-6 bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl text-white rounded-2xl shadow-2xl hover:shadow-purple-500/25 hover:scale-105 transition-all duration-300 cursor-pointer border border-dark-600/50">
+            <div className="flex items-center gap-3">
               <FaCar className="text-3xl text-purple-400" />
               <h3 className="text-xl font-semibold mb-2">Unused Vehicles</h3>
             </div>
@@ -448,17 +452,19 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="p-6 bg-gradient-to-b from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer">
-          <div className="flex items-center gap-2">
-            <FaUser className="text-3xl text-blue-400" />
-            <h3 className="text-xl font-semibold mb-2">Drivers</h3>
+        <div className="animate-fade-in">
+          <div className="p-6 bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl text-white rounded-2xl shadow-2xl hover:shadow-primary-500/25 hover:scale-105 transition-all duration-300 cursor-pointer border border-dark-600/50">
+            <div className="flex items-center gap-3">
+              <FaUser className="text-3xl text-primary-400" />
+              <h3 className="text-xl font-semibold mb-2">Drivers</h3>
+            </div>
+            <p className="text-3xl font-bold text-primary-400">{driversFreq}</p>
           </div>
-          <p className="text-3xl font-bold text-blue-400">{driversFreq}</p>
         </div>
       </div>
-      <div className="grid grid-cols-2 grid-rows-3 min-h-screen gap-6 p-4">
+      <div className="grid grid-cols-2 grid-rows-3 min-h-screen gap-6 p-6">
         {/* Line chart div: Full width on top */}
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 shadow-2xl transition-all hover:shadow-sm   hover:shadow-blue-400 hover:scale-[1.02] duration-300 ease-in-out cursor-pointer col-span-2 rounded-2xl p-8 min-h-[250px]">
+        <div className="bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl shadow-2xl transition-all hover:shadow-primary-500/25 hover:scale-[1.02] duration-300 ease-in-out cursor-pointer col-span-2 rounded-2xl p-8 min-h-[250px] border border-dark-600/50">
           <div className="w-full h-full min-h-[350px]">
             {month_rev.length > 0 ? (
               <Line

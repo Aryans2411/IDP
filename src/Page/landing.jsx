@@ -103,19 +103,19 @@ export const LandingPage = () => {
 
   return (
     <div>
-      <div className="relative flex flex-col items-center justify-center   bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+      <div className="relative flex flex-col items-center justify-center bg-gradient-to-br from-dark-950 via-dark-900 to-dark-800 text-white">
         {/* Buttons aligned to the top right */}
-        <div className="   items-center justify-center">
+        <div className="items-center justify-center">
           <div className="absolute top-6 right-6 flex space-x-4 z-20">
             <button
               onClick={handleLoginClick}
-              className="px-6 py-3 text-white border border-neutral-200 rounded-md shadow-lg transition hover:bg-gradient-to-br from-neutral-500 to-gray-700 hover:text-black"
+              className="px-6 py-3 text-white border border-dark-300 rounded-xl shadow-lg transition-all duration-300 hover:bg-gradient-to-br from-primary-600 to-secondary-600 hover:text-white hover:scale-105 backdrop-blur-sm"
             >
               Login
             </button>
             <button
               onClick={handleSignupClick}
-              className="px-6 py-3 text-white border border-white rounded-md shadow-lg transition hover:bg-gradient-to-br from-neutral-500 to-gray-700 hover:text-black "
+              className="px-6 py-3 text-white border border-primary-500 rounded-xl shadow-lg transition-all duration-300 hover:bg-gradient-to-br from-primary-600 to-secondary-600 hover:text-white hover:scale-105 backdrop-blur-sm"
             >
               Sign Up
             </button>
@@ -123,16 +123,16 @@ export const LandingPage = () => {
 
           {/* Fleetio Heading */}
           <div className="mx-auto px-4 w-full text-center py-12">
-            <h1 className="text-5xl font-extrabold text-white leading-tight">
+            <h1 className="text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400 leading-tight animate-fade-in">
               DriveWise
             </h1>
-            <h3 className="text-lg text-gray-400 font-light max-w-lg mx-auto mt-4">
+            <h3 className="text-xl text-dark-300 font-light max-w-lg mx-auto mt-6 animate-slide-up">
               One-stop solution for all your fleet management needs, from driver
               assignments to vehicle maintenance updates.
             </h3>
           </div>
-          <div className="  h-[520px] bg-gradient-to-br from-gray-900 via-gray-600 to-black max-w-full mx-auto  rounded-lg mb-8 p-8 flex flex-col items-center justify-between shadow-2xl hover:shadow-3xl">
-            <div className="text-center   ">
+          <div className="h-[520px] bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl max-w-full mx-auto rounded-2xl mb-8 p-8 flex flex-col items-center justify-between shadow-2xl hover:shadow-primary-500/25 border border-dark-600/50 transition-all duration-500">
+            <div className="text-center">
               <h1 className="text-2xl font-bold text-white leading-relaxed mb-1 px-4">
                 Get Customized and informative dashboard to monitor your
                 <br />
@@ -142,12 +142,12 @@ export const LandingPage = () => {
             <div className="transition-transform duration-[1000ms] ease-in-out hover:scale-150 flex items-center justify-center mb-6 pb-6">
               <img
                 src={my_image}
-                className="w-full   max-h-[390px] object-fill rounded-lg hover:scale-105 transition-all"
+                className="w-full max-h-[390px] object-fill rounded-xl hover:scale-105 transition-all duration-300"
               ></img>
             </div>
           </div>
-          <div className="bg-gradient-to-br from-gray-900 via-gray-600 to-black rounded-lg mb-8 p-8">
-            <h1 className="pt-5 text-2xl font-bold text-white text-center leading-relaxed  mt-4">
+          <div className="bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl rounded-2xl mb-8 p-8 border border-dark-600/50 shadow-2xl hover:shadow-primary-500/25 transition-all duration-500">
+            <h1 className="pt-5 text-3xl font-bold text-white text-center leading-relaxed mt-4 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-400">
               Features to keep you ahead of the competition
             </h1>
             <CardHoverEffectDemo />
@@ -155,10 +155,10 @@ export const LandingPage = () => {
           {/* Animated Stats Section */}
           <div
             ref={ref}
-            className="mx-auto max-w-4xl  flex justify-center   py-12"
+            className="mx-auto max-w-4xl flex justify-center py-12"
           >
             <motion.div
-              className="grid grid-cols-1 md:grid-cols-3     gap-6 text-center"
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center"
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease: "easeOut" }}
@@ -166,19 +166,19 @@ export const LandingPage = () => {
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}
-                  className=" border border:bg border-transparent  dark:border-white/[0.2] rounded-lg p-6 transition duration-300 hover:-translate-x-2 shadow-md hover:shadow-blue-500/50  hover:bg-gray-900/50   bg-gray-800  "
+                  className="border border-dark-600/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 shadow-xl hover:shadow-primary-500/25 hover:bg-dark-700/50 bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ delay: index * 0.2, duration: 0.5 }}
                 >
-                  <h2 className="text-4xl font-bold  text-white">
+                  <h2 className="text-4xl font-bold text-white">
                     <AnimatedNumber value={stat.value} inView={isInView} />
                     {index === 2 ? "x" : "%"}
                   </h2>
-                  <p className="text-gray-400 hover:text-white mt-2  ">
+                  <p className="text-dark-300 hover:text-white mt-2 transition-colors duration-200">
                     {stat.label}
                   </p>
-                  <p className="text-gray-500 hover:text-white font-semibold mt-2">
+                  <p className="text-dark-400 hover:text-white font-semibold mt-2 transition-colors duration-200">
                     {stat.company}
                   </p>
                 </motion.div>

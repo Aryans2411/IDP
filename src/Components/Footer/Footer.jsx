@@ -79,7 +79,7 @@ const navigation = {
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900">
+    <footer className="bg-gradient-to-r from-dark-900 via-dark-800 to-dark-900 border-t border-dark-700/50">
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
         <nav
           aria-label="Footer"
@@ -89,7 +89,7 @@ export default function Footer() {
             <a
               key={item.name}
               href={item.href}
-              className="text-gray-400 hover:text-white"
+              className="text-dark-400 hover:text-white transition-colors duration-200"
             >
               {item.name}
             </a>
@@ -100,14 +100,15 @@ export default function Footer() {
             <a
               key={item.name}
               href={item.href}
-              className="text-gray-400 hover:text-gray-300"
+              className="text-dark-400 hover:text-primary-400 transition-all duration-200 hover:scale-110"
+              {...item.linkProps}
             >
               <span className="sr-only">{item.name}</span>
               <item.icon aria-hidden="true" className="size-6" />
             </a>
           ))}
         </div>
-        <p className="mt-10 text-center text-sm/6 text-gray-400">
+        <p className="mt-10 text-center text-sm/6 text-dark-400">
           &copy; 2025 DriveWise, Inc. All rights reserved.
         </p>
       </div>

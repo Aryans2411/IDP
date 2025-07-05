@@ -93,22 +93,22 @@ export default function Analytics() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-dark-800 text-white">
       <Navigation />
 
-      <div className="container mx-auto px-4 py-4">
-        <h1 className="text-4xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-indigo-900">
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-5xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400 animate-fade-in">
           Predictive Maintenance Analysis
         </h1>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-gray-800/50   p-8 rounded-xl border border-gray-700 shadow-2xl hover:shadow-blue-500 transition-shadow duration-300"
+          className="bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl p-8 rounded-2xl border border-dark-600/50 shadow-2xl hover:shadow-primary-500/20 transition-all duration-500 animate-slide-up"
         >
           <div className="grid md:grid-cols-2 gap-6">
             {/* Registration Number Field */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-300">
+            <div className="space-y-3">
+              <label className="block text-sm font-medium text-dark-200">
                 Registration Number
               </label>
               <input
@@ -116,7 +116,7 @@ export default function Analytics() {
                 name="registrationnumber"
                 value={registrationnumber}
                 onChange={(e) => setRegistrationNumber(e.target.value)}
-                className="w-full bg-gray-700/50 text-white rounded-lg border border-gray-600 focus:border-green-500 focus:ring-2 focus:ring-green-500/50 p-3 transition-all duration-300"
+                className="w-full bg-dark-700/50 text-white rounded-xl border border-dark-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/50 p-4 transition-all duration-300 placeholder-dark-400"
                 placeholder="Enter Registration Number"
                 required
               />
@@ -138,8 +138,8 @@ export default function Analytics() {
                 name: "temperature_difference",
               },
             ].map((field, index) => (
-              <div key={index} className="space-y-2">
-                <label className="block text-sm font-medium text-gray-300">
+              <div key={index} className="space-y-3">
+                <label className="block text-sm font-medium text-dark-200">
                   {field.label}
                 </label>
                 <input
@@ -148,7 +148,7 @@ export default function Analytics() {
                   value={formData[field.name]}
                   onChange={handleInputChange}
                   step="0.01"
-                  className="w-full bg-gray-700/50 text-white rounded-lg border border-gray-600 focus:border-green-500 focus:ring-2 focus:ring-green-500/50 p-3 transition-all duration-300"
+                  className="w-full bg-dark-700/50 text-white rounded-xl border border-dark-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/50 p-4 transition-all duration-300 placeholder-dark-400"
                   placeholder={`Enter ${field.label}`}
                   required
                 />
@@ -156,15 +156,15 @@ export default function Analytics() {
             ))}
 
             {/* Fuel Type Dropdown */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-300">
+            <div className="space-y-3">
+              <label className="block text-sm font-medium text-dark-200">
                 Fuel Type
               </label>
               <select
                 name="fuel_type"
                 value={formData.fuel_type}
                 onChange={handleInputChange}
-                className="w-full bg-gray-700/50 text-white rounded-lg border border-gray-600 focus:border-green-500 focus:ring-2 focus:ring-green-500/50 p-3 transition-all duration-300"
+                className="w-full bg-dark-700/50 text-white rounded-xl border border-dark-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/50 p-4 transition-all duration-300"
                 required
               >
                 <option value="">Select Fuel Type</option>
@@ -179,7 +179,7 @@ export default function Analytics() {
             <button
               type="submit"
               disabled={isLoading}
-              className="bg-gradient-to-r from-sky-400 to-indigo-900 hover:bg-linear-to-r hover:from-gray-800 hover:via-blue-700 hover:to-gray-900 text-white font-semibold py-3 px-8 rounded-lg transition  duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-allowed"
+              className="bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 hover:from-primary-700 hover:via-secondary-700 hover:to-accent-700 text-white font-semibold py-4 px-10 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-primary-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none animate-bounce-gentle"
             >
               {isLoading ? "Processing..." : "Get Maintenance Prediction"}
             </button>
@@ -188,46 +188,46 @@ export default function Analytics() {
 
         {/* Prediction Result Display */}
         {predictionResult && (
-          <div className="mt-8 bg-gray-800/50 backdrop-blur-md p-8 rounded-xl border border-gray-700 shadow-2xl hover:shadow-green-500/10 transition-shadow duration-300">
-            <h2 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
+          <div className="mt-8 bg-gradient-to-br from-dark-800/80 to-dark-700/80 backdrop-blur-xl p-8 rounded-2xl border border-dark-600/50 shadow-2xl hover:shadow-accent-500/20 transition-all duration-500 animate-slide-up">
+            <h2 className="text-3xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-accent-400 to-primary-400">
               Prediction Results
             </h2>
-            <div className="space-y-4">
-              <div className="bg-gray-700/50 p-4 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-200">
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-gradient-to-br from-dark-700/50 to-dark-600/50 p-6 rounded-xl border border-dark-600/50 hover:shadow-lg transition-all duration-300">
+                <h3 className="text-lg font-semibold text-dark-200 mb-3">
                   Engine Condition
                 </h3>
                 <p
-                  className={`text-2xl font-bold ${
+                  className={`text-3xl font-bold ${
                     predictionResult.engine_condition === "Normal"
-                      ? "text-green-400"
+                      ? "text-accent-400"
                       : "text-red-400"
                   }`}
                 >
                   {predictionResult.engine_condition}
                 </p>
               </div>
-              <div className="bg-gray-700/50 p-4 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-200">
+              <div className="bg-gradient-to-br from-dark-700/50 to-dark-600/50 p-6 rounded-xl border border-dark-600/50 hover:shadow-lg transition-all duration-300">
+                <h3 className="text-lg font-semibold text-dark-200 mb-3">
                   Maintenance Probability
                 </h3>
-                <div className="w-full bg-gray-600 rounded-full h-2.5 mt-2">
+                <div className="w-full bg-dark-600 rounded-full h-3 mt-3">
                   <div
-                    className="bg-gradient-to-r from-green-400 to-blue-500 h-2.5 rounded-full"
+                    className="bg-gradient-to-r from-accent-500 to-primary-500 h-3 rounded-full transition-all duration-500"
                     style={{
                       width: `${predictionResult.probability * 100}%`,
                     }}
                   ></div>
                 </div>
-                <p className="text-gray-300 mt-2">
+                <p className="text-dark-300 mt-3 text-lg font-semibold">
                   {Math.round(predictionResult.probability * 100)}%
                 </p>
               </div>
-              <div className="bg-gray-700/50 p-4 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-200">
+              <div className="bg-gradient-to-br from-dark-700/50 to-dark-600/50 p-6 rounded-xl border border-dark-600/50 hover:shadow-lg transition-all duration-300">
+                <h3 className="text-lg font-semibold text-dark-200 mb-3">
                   Maintenance Date
                 </h3>
-                <p className={`text-2xl font-bold`}>
+                <p className="text-3xl font-bold text-primary-400">
                   {predictionResult.maintenance_date}{" "}
                 </p>
               </div>
@@ -237,8 +237,8 @@ export default function Analytics() {
 
         {/* Error Display */}
         {error && (
-          <div className="mt-8 bg-red-900/50 backdrop-blur-md p-6 rounded-xl border border-red-700 shadow-2xl hover:shadow-red-500/10 transition-shadow duration-300">
-            <p className="text-red-200">{error}</p>
+          <div className="mt-8 bg-gradient-to-br from-red-900/50 to-red-800/50 backdrop-blur-xl p-6 rounded-2xl border border-red-700/50 shadow-2xl hover:shadow-red-500/20 transition-all duration-500 animate-slide-up">
+            <p className="text-red-200 text-lg">{error}</p>
           </div>
         )}
       </div>

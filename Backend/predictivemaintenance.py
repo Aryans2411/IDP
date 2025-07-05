@@ -11,10 +11,24 @@ app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for React frontend
 
 # Load the trained model
-model_path = "C:\\Users\\hp\\Desktop\\IDP\\Fleet-Management\\Backend\\hhmodel.pkl"
+model_path = "/Users/aryansinha/IDP2/IDP-FLEET/Backend/hhmodel.pkl"
 # model_path = "Backend\hhmodel.pkl" # Update to the correct path
-with open(model_path, 'rb') as file:
-    model = pickle.load(file)
+
+try:
+    with open(model_path, 'rb') as file:
+        model = pickle.load(file)
+    print("Model loaded successfully")
+except FileNotFoundError:
+    print(f"Error: Model file '{model_path}' not found.")
+    model = None
+except ModuleNotFoundError as e:
+    print(f"Error: Module compatibility issue - {e}")
+    print("This usually happens when the model was trained with a different scikit-learn version.")
+    print("Try updating scikit-learn: pip install --upgrade scikit-learn")
+    model = None
+except Exception as e:
+    print(f"Error loading model: {e}")
+    model = None
 
 # Define constants
 THRESHOLD = 0.6  # Probability threshold for maintenance recommendation
@@ -23,6 +37,12 @@ MAX_DAYS_TO_MAINTENANCE = 30  # Max possible days to maintenance when probabilit
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
+        # Check if model is loaded
+        if model is None:
+            return jsonify({
+                'error': 'Model not loaded. Please check the server logs for details.'
+            }), 500
+            
         # Parse input data
         data = request.get_json()
         # print(data)

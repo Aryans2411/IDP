@@ -794,12 +794,30 @@ app.post("/api/set_maintenance_date", async (req, res) => {
   try {
     const { nextduedate, registrationnumber } = req.body;
     console.log("request body: ", req.body);
+
+    // Validate required fields
+    if (!nextduedate || !registrationnumber) {
+      return res.status(400).json({
+        error: "Both nextduedate and registrationnumber are required",
+      });
+    }
+
     const query = `UPDATE vehicles SET nextduedate = $1
                   WHERE registrationnumber = $2`;
     const response = await con.query(query, [nextduedate, registrationnumber]);
-    res.json(response.rows);
+
+    if (response.rowCount === 0) {
+      return res.status(404).json({
+        error: "Vehicle with this registration number not found",
+      });
+    }
+
+    res.json({
+      message: "Maintenance date updated successfully",
+      updatedRows: response.rowCount,
+    });
   } catch (error) {
-    console.error({ error: "Error in posting the record" });
+    console.error("Error in posting the record:", error);
     res.status(400).json({ error: "Error in posting the record" });
   }
 });

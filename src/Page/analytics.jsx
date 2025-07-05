@@ -72,14 +72,14 @@ export default function Analytics() {
       setPredictionResult(response.data);
       const maintenanceDate = response.data.maintenance_date;
       setNextduedate(maintenanceDate);
-      console.log(nextduedate," ",registrationnumber);
+      console.log(maintenanceDate, " ", registrationnumber);
       await fetch("http://localhost:4000/api/set_maintenance_date", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nextduedate: nextduedate,
+          nextduedate: maintenanceDate,
           registrationnumber: registrationnumber,
         }),
       });

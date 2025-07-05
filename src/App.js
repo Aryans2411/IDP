@@ -13,6 +13,7 @@ import Login from "./Components/Login/Login.jsx";
 import Signup from "./Components/Signup/Signup.jsx";
 import Databridgeai from "./Page/databridgeai.jsx";
 import EVRangePage from "./Page/EVRangePage.jsx";
+import Profile from "./Page/Profile.jsx";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/databridgeai" element={<Databridgeai />} />
           <Route path="/ev-range" element={<EVRangePage />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </Router>
     </div>

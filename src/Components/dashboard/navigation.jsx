@@ -47,9 +47,9 @@ export default function Navigation() {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
               <img
-                alt="Your Company"
-                src="https://e7.pngegg.com/pngimages/894/400/png-clipart-car-fleet-vehicle-luxury-vehicle-fleet-management-fleet-company-logo.png"
-                className="h-8 w-auto"
+                alt="DriveWise Logo"
+                src="/LOGO.png"
+                className="h-10 w-auto rounded-md shadow-md"
               />
             </div>
             <div className="hidden sm:ml-6 sm:block">
@@ -87,28 +87,15 @@ export default function Navigation() {
               <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-dark-800/95 backdrop-blur-md py-1 shadow-2xl ring-1 ring-dark-600/50 focus:outline-none border border-dark-700/50">
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="#"
+                    <Link
+                      to="/profile"
                       className={classNames(
                         active ? "bg-dark-700/50 text-white" : "text-dark-300",
                         "block px-4 py-2 text-sm transition-colors duration-200"
                       )}
                     >
                       Your Profile
-                    </a>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-dark-700/50 text-white" : "text-dark-300",
-                        "block px-4 py-2 text-sm transition-colors duration-200"
-                      )}
-                    >
-                      Settings
-                    </a>
+                    </Link>
                   )}
                 </Menu.Item>
                 <Menu.Item>
@@ -148,6 +135,20 @@ export default function Navigation() {
               {item.name}
             </Disclosure.Button>
           ))}
+          <Disclosure.Button
+            as={Link}
+            to="/profile"
+            className="text-dark-300 hover:bg-dark-700/50 hover:text-white block rounded-lg px-3 py-2 text-base font-medium transition-all duration-200"
+          >
+            Profile
+          </Disclosure.Button>
+          <Disclosure.Button
+            as="button"
+            onClick={handleLogout}
+            className="text-red-400 hover:bg-red-600/20 hover:text-red-300 block w-full text-left rounded-lg px-3 py-2 text-base font-medium transition-all duration-200"
+          >
+            Sign out
+          </Disclosure.Button>
         </div>
       </Disclosure.Panel>
     </Disclosure>

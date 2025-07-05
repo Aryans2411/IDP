@@ -2324,3 +2324,81 @@ const server = app
       process.exit(1);
     }
   });
+
+// User profile endpoint
+app.get("/api/user/profile", async (req, res) => {
+  try {
+    // For now, we'll use the global userid variable
+    // In a real app, you'd get this from a session/token
+    if (!userid) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    const query =
+      "SELECT userid, name, email, phonenumber FROM users WHERE userid = $1";
+    const result = await con.query(query, [userid]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const user = result.rows[0];
+    res.json({
+      userid: user.userid,
+      name: user.name,
+      email: user.email,
+      phonenumber: user.phonenumber,
+      role: "Fleet Manager", // Default role since it's not in the database
+      company: "DriveWise Fleet Solutions", // Default company
+      location: "New York, NY", // Default location
+      joinDate: "January 2024", // Default join date
+    });
+  } catch (err) {
+    console.error("Error fetching user profile:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Update user profile endpoint
+app.put("/api/user/profile", async (req, res) => {
+  try {
+    if (!userid) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    const { name, email, phonenumber } = req.body;
+
+    // Check if email is already taken by another user
+    if (email) {
+      const emailCheckQuery =
+        "SELECT userid FROM users WHERE email = $1 AND userid != $2";
+      const emailCheck = await con.query(emailCheckQuery, [email, userid]);
+      if (emailCheck.rows.length > 0) {
+        return res.status(409).json({ error: "Email already in use" });
+      }
+    }
+
+    const query =
+      "UPDATE users SET name = $1, email = $2, phonenumber = $3 WHERE userid = $4 RETURNING userid, name, email, phonenumber";
+    const result = await con.query(query, [name, email, phonenumber, userid]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const user = result.rows[0];
+    res.json({
+      userid: user.userid,
+      name: user.name,
+      email: user.email,
+      phonenumber: user.phonenumber,
+      role: "Fleet Manager",
+      company: "DriveWise Fleet Solutions",
+      location: "New York, NY",
+      joinDate: "January 2024",
+    });
+  } catch (err) {
+    console.error("Error updating user profile:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});

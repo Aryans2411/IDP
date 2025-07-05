@@ -13,6 +13,14 @@ export default function Driver() {
     earningperkm: "",
   });
   const [formAnimation, setFormAnimation] = useState("opacity-100"); // for form fade-out animation
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editingDriver, setEditingDriver] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    name: "",
+    licensenumber: "",
+    phonenumber: "",
+    earningperkm: "",
+  });
 
   // Fetch driver data on component mount
   useEffect(() => {
@@ -110,6 +118,86 @@ export default function Driver() {
       setIsFormOpen(false); // Hide form completely after animation
       setFormAnimation("opacity-100"); // Reset form animation state
     }, 300); // Duration of the fade-out effect
+  };
+
+  // Edit functionality
+  const handleEdit = (driver) => {
+    setEditingDriver(driver);
+    setEditFormData({
+      name: driver.name,
+      licensenumber: driver.licensenumber,
+      phonenumber: driver.phonenumber,
+      earningperkm: driver.earningperkm,
+    });
+    setIsEditMode(true);
+  };
+
+  const handleEditInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    setErr("");
+    setSuccess("");
+
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/update_driver/${editingDriver.driverid}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editFormData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Error updating driver");
+      }
+
+      const result = await response.json();
+      console.log("Driver updated:", result);
+
+      getDriverInfo();
+
+      setEditFormData({
+        name: "",
+        licensenumber: "",
+        phonenumber: "",
+        earningperkm: "",
+      });
+      setEditingDriver(null);
+      setIsEditMode(false);
+      setSuccess("Driver Updated Successfully!");
+
+      setTimeout(() => {
+        setSuccess(null);
+      }, 3000);
+    } catch (error) {
+      console.error("Error updating driver:", error.message);
+      setErr(error.message || "Failed to update");
+      setTimeout(() => {
+        setErr(null);
+      }, 3000);
+    }
+  };
+
+  const handleEditCancel = () => {
+    setEditingDriver(null);
+    setIsEditMode(false);
+    setEditFormData({
+      name: "",
+      licensenumber: "",
+      phonenumber: "",
+      earningperkm: "",
+    });
   };
 
   return (
@@ -245,6 +333,100 @@ export default function Driver() {
                 </form>
               </div>
             )}
+            {isEditMode && (
+              <div className="mt-8 bg-gray-800 p-6 rounded-lg shadow-md">
+                <h2 className="text-lg font-semibold text-white mb-4">
+                  Edit Driver: {editingDriver?.name}
+                </h2>
+                <form onSubmit={handleEditSubmit} className="space-y-4">
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-gray-300"
+                      htmlFor="edit_name"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="edit_name"
+                      name="name"
+                      value={editFormData.name}
+                      onChange={handleEditInputChange}
+                      className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-gray-300"
+                      htmlFor="edit_licensenumber"
+                    >
+                      License Number
+                    </label>
+                    <input
+                      type="text"
+                      id="edit_licensenumber"
+                      name="licensenumber"
+                      value={editFormData.licensenumber}
+                      onChange={handleEditInputChange}
+                      className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-gray-300"
+                      htmlFor="edit_phonenumber"
+                    >
+                      Phone Number
+                    </label>
+                    <input
+                      type="text"
+                      id="edit_phonenumber"
+                      name="phonenumber"
+                      value={editFormData.phonenumber}
+                      onChange={handleEditInputChange}
+                      className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-gray-300"
+                      htmlFor="edit_earningperkm"
+                    >
+                      Earning Per Km
+                    </label>
+                    <input
+                      type="number"
+                      id="edit_earningperkm"
+                      name="earningperkm"
+                      value={editFormData.earningperkm}
+                      onChange={handleEditInputChange}
+                      step={1}
+                      min={10}
+                      className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      required
+                    />
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <button
+                      type="button"
+                      onClick={handleEditCancel}
+                      className="mr-4 px-4 py-2 bg-gray-600 text-sm font-medium text-white rounded-md hover:bg-gray-500"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-yellow-500 text-sm font-medium text-white rounded-md hover:bg-yellow-400"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
             <div className="mt-8 flow-root">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -287,6 +469,12 @@ export default function Driver() {
                         >
                           Last Duty Date
                         </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-white"
+                        >
+                          Actions
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-800">
@@ -318,6 +506,14 @@ export default function Driver() {
                                     .toISOString()
                                     .split("T")[0]
                                 : null}
+                            </td>
+                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                              <button
+                                className="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600 transition hover:-translate-x-1"
+                                onClick={() => handleEdit(driver)}
+                              >
+                                Edit
+                              </button>
                             </td>
                           </tr>
                         ))

@@ -2062,6 +2062,230 @@ app.get("/api/queue-status/:locationid", async (req, res) => {
   }
 });
 
+// API endpoint for updating vehicle information
+app.put("/api/update_vehicle/:vehicleid", async (req, res) => {
+  try {
+    const { vehicleid } = req.params;
+    const {
+      registrationnumber,
+      make,
+      latitude,
+      longitude,
+      fueltype,
+      idealmileage,
+    } = req.body;
+
+    // Validate required fields
+    if (
+      !registrationnumber ||
+      !make ||
+      !fueltype ||
+      !idealmileage ||
+      !latitude ||
+      !longitude
+    ) {
+      return res.status(400).json({
+        error:
+          "Required fields are missing: registrationnumber, make, fueltype, idealmileage, latitude, longitude",
+      });
+    }
+
+    // Validate fueltype
+    const validFuelTypes = ["Petrol", "Diesel", "Electric"];
+    if (!validFuelTypes.includes(fueltype)) {
+      return res.status(400).json({ error: "Invalid fuel type" });
+    }
+
+    // Update vehicle in the database
+    const query = `
+      UPDATE Vehicles 
+      SET registrationnumber = $1, make = $2, fueltype = $3, idealmileage = $4, latitude = $5, longitude = $6
+      WHERE vehicleid = $7 AND userid = $8
+      RETURNING vehicleid;
+    `;
+
+    const values = [
+      registrationnumber,
+      make,
+      fueltype,
+      idealmileage,
+      latitude,
+      longitude,
+      vehicleid,
+      userid,
+    ];
+
+    const result = await con.query(query, values);
+
+    if (result.rows.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "Vehicle not found or unauthorized" });
+    }
+
+    res.json({
+      message: "Vehicle updated successfully",
+      vehicleid: result.rows[0].vehicleid,
+    });
+  } catch (err) {
+    console.error("Error updating vehicle:", err);
+
+    // Handle unique constraint violation for registrationnumber
+    if (err.code === "23505") {
+      return res.status(409).json({
+        error: "Registration number already exists",
+      });
+    }
+
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// API endpoint for updating driver information
+app.put("/api/update_driver/:driverid", async (req, res) => {
+  try {
+    const { driverid } = req.params;
+    const { name, earningperkm, licensenumber, phonenumber } = req.body;
+
+    // Validate required fields
+    if (!name || !licensenumber || !phonenumber) {
+      return res.status(400).json({
+        error: "Required fields are missing: name, licensenumber, phonenumber",
+      });
+    }
+
+    // Validate the format of the license number
+    if (licensenumber.length > 50) {
+      return res
+        .status(400)
+        .json({ error: "License number exceeds maximum length" });
+    }
+
+    // Validate that earning per km, if provided, is a positive number
+    if (earningperkm !== undefined && earningperkm < 0) {
+      return res
+        .status(400)
+        .json({ error: "Earning per km must be a positive value" });
+    }
+
+    // Update driver in the database
+    const query = `
+      UPDATE Drivers 
+      SET name = $1, earningperkm = $2, LicenseNumber = $3, PhoneNumber = $4
+      WHERE driverid = $5 AND userid = $6
+      RETURNING driverid;
+    `;
+
+    const values = [
+      name,
+      earningperkm,
+      licensenumber,
+      phonenumber,
+      driverid,
+      userid,
+    ];
+
+    const result = await con.query(query, values);
+
+    if (result.rows.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "Driver not found or unauthorized" });
+    }
+
+    res.json({
+      message: "Driver updated successfully",
+      driverid: result.rows[0].driverid,
+    });
+  } catch (err) {
+    console.error("Error updating driver:", err);
+
+    // Handle unique constraint violation for licensenumber
+    if (err.code === "23505") {
+      return res.status(409).json({
+        error: "License number already exists",
+      });
+    }
+
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// API endpoint for updating trip information
+app.put("/api/update_trip/:tripid", async (req, res) => {
+  try {
+    const { tripid } = req.params;
+    const {
+      starttime,
+      endtime,
+      startlatitude1,
+      startlongitude1,
+      endlatitude1,
+      endlongitude1,
+      distancetravalled1,
+      revenue,
+    } = req.body;
+
+    // Parse numeric and integer values
+    const startlatitude = parseFloat(startlatitude1);
+    const startlongitude = parseFloat(startlongitude1);
+    const endlatitude = parseFloat(endlatitude1);
+    const endlongitude = parseFloat(endlongitude1);
+    const distancetravelled = parseFloat(distancetravalled1);
+    const reveneue = parseInt(revenue);
+
+    // Validate required fields
+    if (
+      !startlatitude ||
+      !startlongitude ||
+      !endlatitude ||
+      !endlongitude ||
+      !starttime ||
+      !revenue
+    ) {
+      return res
+        .status(400)
+        .json({ error: "Please fill all required fields properly." });
+    }
+
+    // Update trip in the database
+    const query = `
+      UPDATE Trips 
+      SET startlatitude = $1, startlongitude = $2, endlatitude = $3, endlongitude = $4,
+          starttime = $5, endtime = $6, distancetravelled = $7, revenue = $8
+      WHERE tripid = $9 AND userid = $10
+      RETURNING tripid;
+    `;
+
+    const values = [
+      startlatitude,
+      startlongitude,
+      endlatitude,
+      endlongitude,
+      starttime,
+      endtime,
+      distancetravelled,
+      reveneue,
+      tripid,
+      userid,
+    ];
+
+    const result = await con.query(query, values);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Trip not found or unauthorized" });
+    }
+
+    res.json({
+      message: "Trip updated successfully",
+      tripid: result.rows[0].tripid,
+    });
+  } catch (err) {
+    console.error("Error updating trip:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 const server = app
   .listen(port, () => {
     console.log(`Server is listening on port ${port}`);

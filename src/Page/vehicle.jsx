@@ -35,6 +35,16 @@ export default function Vehicle() {
     longitude: null,
   });
   const [formAnimation, setFormAnimation] = useState("opacity-100");
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editingVehicle, setEditingVehicle] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    make: "",
+    registrationnumber: "",
+    fueltype: "",
+    idealmileage: "",
+    latitude: null,
+    longitude: null,
+  });
 
   useEffect(() => {
     getVehicleInfo();
@@ -70,6 +80,16 @@ export default function Vehicle() {
         console.log(`Latitude: ${lat}, Longitude: ${lng}`);
       },
     });
+  };
+
+  const MapClickHandler = ({ onMapClick }) => {
+    useMapEvents({
+      click: (e) => {
+        const { lat, lng } = e.latlng;
+        onMapClick(lat, lng);
+      },
+    });
+    return null;
   };
 
   const getVehicleInfo = async () => {
@@ -220,6 +240,100 @@ export default function Vehicle() {
       setIsFormOpen(false);
       setFormAnimation("opacity-100");
     }, 300);
+  };
+
+  // Edit functionality
+  const handleEdit = (vehicle) => {
+    setEditingVehicle(vehicle);
+    setEditFormData({
+      make: vehicle.make,
+      registrationnumber: vehicle.registrationnumber,
+      fueltype: vehicle.fueltype,
+      idealmileage: vehicle.idealmileage,
+      latitude: vehicle.latitude,
+      longitude: vehicle.longitude,
+    });
+    setIsEditMode(true);
+  };
+
+  const handleEditInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleEditMapClick = (lat, lng) => {
+    setEditFormData((prev) => ({
+      ...prev,
+      latitude: lat,
+      longitude: lng,
+    }));
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    setErr("");
+    setSuccess("");
+
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/update_vehicle/${editingVehicle.vehicleid}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editFormData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Error updating vehicle");
+      }
+
+      const result = await response.json();
+      console.log("Vehicle updated:", result);
+
+      getVehicleInfo();
+
+      setEditFormData({
+        make: "",
+        registrationnumber: "",
+        fueltype: "",
+        idealmileage: "",
+        latitude: null,
+        longitude: null,
+      });
+      setEditingVehicle(null);
+      setIsEditMode(false);
+      setSuccess("Vehicle Updated Successfully!");
+
+      setTimeout(() => {
+        setSuccess(null);
+      }, 3000);
+    } catch (error) {
+      console.error("Error updating vehicle:", error.message);
+      setErr(error.message || "Failed to update");
+      setTimeout(() => {
+        setErr(null);
+      }, 3000);
+    }
+  };
+
+  const handleEditCancel = () => {
+    setEditingVehicle(null);
+    setIsEditMode(false);
+    setEditFormData({
+      make: "",
+      registrationnumber: "",
+      fueltype: "",
+      idealmileage: "",
+      latitude: null,
+      longitude: null,
+    });
   };
 
   return (
@@ -388,6 +502,140 @@ export default function Vehicle() {
                 </form>
               </div>
             )}
+            {isEditMode && (
+              <div className="mt-8 bg-gray-800 p-6 rounded-lg shadow-md">
+                <h2 className="text-lg font-semibold text-white mb-4">
+                  Edit Vehicle: {editingVehicle?.registrationnumber}
+                </h2>
+                <form onSubmit={handleEditSubmit} className="space-y-4">
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-gray-300"
+                      htmlFor="edit_make"
+                    >
+                      Model
+                    </label>
+                    <input
+                      type="text"
+                      id="edit_make"
+                      name="make"
+                      value={editFormData.make}
+                      onChange={handleEditInputChange}
+                      className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-gray-300"
+                      htmlFor="edit_registrationnumber"
+                    >
+                      Registration Number
+                    </label>
+                    <input
+                      type="text"
+                      id="edit_registrationnumber"
+                      name="registrationnumber"
+                      value={editFormData.registrationnumber}
+                      onChange={handleEditInputChange}
+                      className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-gray-300"
+                      htmlFor="edit_fueltype"
+                    >
+                      Fuel Type
+                    </label>
+                    <select
+                      id="edit_fueltype"
+                      name="fueltype"
+                      value={editFormData.fueltype}
+                      onChange={handleEditInputChange}
+                      className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"
+                      required
+                    >
+                      <option value="" disabled>
+                        Select Fuel Type
+                      </option>
+                      <option value="Petrol">Petrol</option>
+                      <option value="Diesel">Diesel</option>
+                      <option value="Electric">EV</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-gray-300"
+                      htmlFor="edit_idealmileage"
+                    >
+                      Mileage
+                    </label>
+                    <input
+                      type="number"
+                      id="edit_idealmileage"
+                      name="idealmileage"
+                      value={editFormData.idealmileage}
+                      onChange={handleEditInputChange}
+                      step={0.01}
+                      className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-gray-300"
+                      htmlFor="edit_location"
+                    >
+                      Map (Click to update location)
+                    </label>
+                    <div className="flex justify-center items-center mt-10">
+                      <MapContainer
+                        className="w-full max-w-4xl h-96 rounded-lg shadow-md"
+                        center={[12.9716, 77.5946]}
+                        zoom={8}
+                      >
+                        <TileLayer
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        />
+                        {editFormData.latitude && editFormData.longitude && (
+                          <Marker
+                            position={[
+                              editFormData.latitude,
+                              editFormData.longitude,
+                            ]}
+                            icon={customIcon}
+                          >
+                            <Popup>
+                              Latitude: {editFormData.latitude}, Longitude:{" "}
+                              {editFormData.longitude}
+                            </Popup>
+                          </Marker>
+                        )}
+                        <MapClickHandler onMapClick={handleEditMapClick} />
+                      </MapContainer>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <button
+                      type="button"
+                      onClick={handleEditCancel}
+                      className="mr-4 px-4 py-2 bg-gray-600 text-sm font-medium text-white rounded-md hover:bg-gray-500"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-yellow-500 text-sm font-medium text-white rounded-md hover:bg-yellow-400"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
             <div className="mt-8 flow-root">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -447,6 +695,12 @@ export default function Vehicle() {
                           className="px-3 py-3.5 text-left text-sm font-semibold text-white"
                         >
                           Next Due Date
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-white"
+                        >
+                          Actions
                         </th>
                       </tr>
                     </thead>
@@ -593,6 +847,14 @@ export default function Vehicle() {
                                 : new Date(vehicle.nextduedate)
                                     .toISOString()
                                     .split("T")[0]}
+                            </td>
+                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                              <button
+                                className="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600 transition hover:-translate-x-1 mr-2"
+                                onClick={() => handleEdit(vehicle)}
+                              >
+                                Edit
+                              </button>
                             </td>
                           </tr>
                         ))

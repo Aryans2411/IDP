@@ -377,8 +377,10 @@ export default function Vehicle() {
               <div className="sm:flex-auto">
                 <h1 className="text-base font-bold text-white">Vehicles</h1>
                 <p className="mt-2 text-lg text-gray-300">
-                  A list of all the vehicles in your account including details
-                  like make, registration number, and location.
+                  View and manage your fleet vehicles, including model,
+                  registration, fuel type, range/mileage, and current status.
+                  Use this table to keep your vehicle records up to date and
+                  track maintenance efficiently.
                 </p>
               </div>
               <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">

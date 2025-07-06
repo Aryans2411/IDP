@@ -513,8 +513,10 @@ export default function Trip() {
               <div className="sm:flex-auto">
                 <h1 className="text-base font-bold text-white">Trips</h1>
                 <p className="mt-2 text-lg text-gray-300">
-                  A list of all the trips including their starttime, endtime
-                  startlocation, endlocation, and distancetravalled1travelled.
+                  Track and manage all fleet trips, including start/end times,
+                  locations, distances traveled, and revenue generated. Monitor
+                  trip completion status and driver assignments for
+                  comprehensive fleet operations oversight.
                 </p>
               </div>
               <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">

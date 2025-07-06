@@ -32,7 +32,7 @@ export default function Navigation() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button */}
-            <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-dark-300 hover:bg-dark-700/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset transition-all duration-200">
+            <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-3 text-dark-300 hover:bg-dark-700/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset transition-all duration-200 min-h-[44px] min-w-[44px]">
               <span className="sr-only">Open main menu</span>
               <Bars3Icon
                 aria-hidden="true"
@@ -62,7 +62,7 @@ export default function Navigation() {
                       location.pathname === item.href
                         ? "bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg shadow-primary-500/25" // Active link styling
                         : "text-dark-300 hover:bg-dark-700/50 hover:text-white hover:shadow-md",
-                      "rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 transform hover:scale-105"
+                      "rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 transform hover:scale-105 min-h-[44px] flex items-center"
                     )}
                   >
                     {item.name}
@@ -119,7 +119,7 @@ export default function Navigation() {
       </div>
 
       <Disclosure.Panel className="sm:hidden">
-        <div className="space-y-1 px-2 pb-3 pt-2">
+        <div className="space-y-2 px-4 pb-4 pt-2">
           {initialNavigation.map((item) => (
             <Disclosure.Button
               key={item.key}
@@ -129,7 +129,7 @@ export default function Navigation() {
                 location.pathname === item.href
                   ? "bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg" // Active link styling
                   : "text-dark-300 hover:bg-dark-700/50 hover:text-white",
-                "block rounded-lg px-3 py-2 text-base font-medium transition-all duration-200"
+                "block rounded-lg px-4 py-3 text-base font-medium transition-all duration-200 min-h-[48px] flex items-center"
               )}
             >
               {item.name}
@@ -138,14 +138,14 @@ export default function Navigation() {
           <Disclosure.Button
             as={Link}
             to="/profile"
-            className="text-dark-300 hover:bg-dark-700/50 hover:text-white block rounded-lg px-3 py-2 text-base font-medium transition-all duration-200"
+            className="text-dark-300 hover:bg-dark-700/50 hover:text-white block rounded-lg px-4 py-3 text-base font-medium transition-all duration-200 min-h-[48px] flex items-center"
           >
             Profile
           </Disclosure.Button>
           <Disclosure.Button
             as="button"
             onClick={handleLogout}
-            className="text-red-400 hover:bg-red-600/20 hover:text-red-300 block w-full text-left rounded-lg px-3 py-2 text-base font-medium transition-all duration-200"
+            className="text-red-400 hover:bg-red-600/20 hover:text-red-300 block w-full text-left rounded-lg px-4 py-3 text-base font-medium transition-all duration-200 min-h-[48px] flex items-center"
           >
             Sign out
           </Disclosure.Button>

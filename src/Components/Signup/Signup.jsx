@@ -63,25 +63,38 @@ export const Signup = () => {
               htmlFor="name"
               className="block text-dark-200 font-medium mb-3"
             >
-              Name
+              Full Name
             </label>
             <input
               className="w-full bg-dark-700/50 text-white px-4 py-3 border border-dark-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition-all duration-300 placeholder-dark-400"
               type="text"
               name="name"
               id="name"
-              placeholder="Enter your name"
+              placeholder="Enter your full name"
               value={formData.name}
               onChange={handleChange}
               required
+              aria-required="true"
+              aria-describedby="name-error"
+              aria-invalid={error ? "true" : "false"}
+              autoComplete="name"
             />
+            {error && (
+              <div
+                id="name-error"
+                className="text-red-400 text-sm mt-1"
+                role="alert"
+              >
+                {error}
+              </div>
+            )}
           </div>
           <div>
             <label
               htmlFor="email"
               className="block text-dark-200 font-medium mb-3"
             >
-              Email
+              Email Address
             </label>
             <input
               className="w-full bg-dark-700/50 text-white px-4 py-3 border border-dark-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition-all duration-300 placeholder-dark-400"
@@ -92,7 +105,20 @@ export const Signup = () => {
               value={formData.email}
               onChange={handleChange}
               required
+              aria-required="true"
+              aria-describedby="email-error"
+              aria-invalid={error ? "true" : "false"}
+              autoComplete="email"
             />
+            {error && (
+              <div
+                id="email-error"
+                className="text-red-400 text-sm mt-1"
+                role="alert"
+              >
+                {error}
+              </div>
+            )}
           </div>
           <div>
             <label
@@ -106,11 +132,25 @@ export const Signup = () => {
               type="password"
               name="password"
               id="password"
-              placeholder="Enter your password"
+              placeholder="Create a strong password"
               value={formData.password}
               onChange={handleChange}
               required
+              aria-required="true"
+              aria-describedby="password-error"
+              aria-invalid={error ? "true" : "false"}
+              autoComplete="new-password"
+              minLength="8"
             />
+            {error && (
+              <div
+                id="password-error"
+                className="text-red-400 text-sm mt-1"
+                role="alert"
+              >
+                {error}
+              </div>
+            )}
           </div>
           <div>
             <label
@@ -134,10 +174,21 @@ export const Signup = () => {
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 hover:from-primary-700 hover:via-secondary-700 hover:to-accent-700 text-white py-3 my-4 rounded-xl transition-all duration-300 focus:ring-4 focus:ring-primary-500/50 focus:outline-none hover:scale-105 hover:shadow-xl hover:shadow-primary-500/25"
+              aria-describedby="signup-status"
+              disabled={error}
             >
-              Register
+              {error ? "Creating account..." : "Sign Up"}
             </button>
           </div>
+          {error && (
+            <div
+              id="signup-status"
+              className="text-center text-red-400 text-sm"
+              role="alert"
+            >
+              {error}
+            </div>
+          )}
         </form>
       </div>
     </div>

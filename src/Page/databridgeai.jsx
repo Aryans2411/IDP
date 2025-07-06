@@ -146,7 +146,7 @@ const ChatGPTClone = () => {
         )}
       </div>
 
-      {/* Input Area with Gemini-style gradient animation :cite[7] */}
+      {/* Input Area with Gemini-style gradient animation */}
       <div className="p-4 bg-gray-900/30 border-t border-blue-700/30 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto relative">
           <motion.div whileHover={{ scale: 1.005 }} className="relative">
@@ -163,23 +163,39 @@ const ChatGPTClone = () => {
                        placeholder-blue-300 transition-all duration-200"
               rows={1}
               disabled={isLoading}
+              aria-label="Type your message to RouteGenie"
+              aria-describedby="chat-instructions"
+              aria-required="false"
             />
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleSend}
-              disabled={isLoading}
+              disabled={isLoading || !input.trim()}
               className={`absolute right-2 bottom-4 p-2 rounded-lg transition-all duration-200
                 ${
-                  isLoading
+                  isLoading || !input.trim()
                     ? "bg-blue-600/30 text-blue-400 cursor-not-allowed"
                     : "bg-indigo-500/80 hover:bg-indigo-400/80 text-white"
                 }
                 ${input.trim() ? "opacity-100" : "opacity-50"}`}
+              aria-label="Send message"
+              aria-describedby="send-button-status"
             >
               <FiSend className="text-xl" />
             </motion.button>
           </motion.div>
+          <div id="chat-instructions" className="sr-only">
+            Press Enter to send your message, or click the send button. Use
+            Shift+Enter for a new line.
+          </div>
+          <div id="send-button-status" className="sr-only">
+            {isLoading
+              ? "Sending message..."
+              : input.trim()
+              ? "Send message"
+              : "Type a message to enable send"}
+          </div>
           <p className="text-center text-xs text-blue-300 mt-3">
             AI can make mistakes. Consider checking important information.
           </p>

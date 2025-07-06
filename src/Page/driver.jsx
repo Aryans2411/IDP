@@ -210,8 +210,10 @@ export default function Driver() {
               <div className="sm:flex-auto ">
                 <h1 className="text-base font-bold text-white">Drivers</h1>
                 <p className="mt-2 text-lg text-gray-300   ">
-                  A list of all the drivers including their name, license
-                  number, phone number, and earning per km.
+                  Manage your fleet drivers, including their personal details,
+                  license information, contact numbers, and earnings per
+                  kilometer. Use this table to maintain driver records and track
+                  their availability status.
                 </p>
               </div>
               <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">

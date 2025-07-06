@@ -791,75 +791,77 @@ export default function Home() {
         </div>
 
         <div className="bg-gradient-to-b from-gray-900 to-gray-800 shadow-sm hover:shadow-blue-400 hover:scale-[1.02] transition-transform duration-300 ease-in-out cursor-pointer rounded-2xl p-8 min-h-[250px]">
-          {driver_info.length > 0 ? (
-            <Doughnut
-              data={{
-                labels: driver_info.map((driver) => driver.name),
-                datasets: [
-                  {
-                    data: driver_info.map((driver) => driver.total_earning),
-                    backgroundColor: [
-                      "rgba(255, 99, 132, 0.6)",
-                      "rgba(54, 162, 235, 0.6)",
-                      "rgba(255, 206, 86, 0.6)",
-                      "rgba(75, 192, 192, 0.6)",
-                      "rgba(153, 102, 255, 0.6)",
-                      "rgba(255, 159, 64, 0.6)",
-                      "rgba(231, 233, 237, 0.6)",
-                    ],
-                    hoverBackgroundColor: [
-                      "rgba(255, 99, 132, 0.9)",
-                      "rgba(54, 162, 235, 0.9)",
-                      "rgba(255, 206, 86, 0.9)",
-                      "rgba(75, 192, 192, 0.9)",
-                      "rgba(153, 102, 255, 0.9)",
-                      "rgba(255, 159, 64, 0.9)",
-                      "rgba(231, 233, 237, 0.9)",
-                    ],
-                    borderWidth: 2,
-                    borderColor: "#FFFFFF",
-                  },
-                ],
-              }}
-              options={{
-                plugins: {
-                  legend: {
-                    position: "top",
-                    labels: {
-                      color: "#F7FAFC",
-                      font: {
-                        size: 14,
-                        family: "Inter, sans-serif",
-                        weight: "500",
+          <div className="w-full h-full">
+            {driver_info.length > 0 ? (
+              <Doughnut
+                data={{
+                  labels: driver_info.map((driver) => driver.name),
+                  datasets: [
+                    {
+                      data: driver_info.map((driver) => driver.total_earning),
+                      backgroundColor: [
+                        "rgba(255, 99, 132, 0.6)",
+                        "rgba(54, 162, 235, 0.6)",
+                        "rgba(255, 206, 86, 0.6)",
+                        "rgba(75, 192, 192, 0.6)",
+                        "rgba(153, 102, 255, 0.6)",
+                        "rgba(255, 159, 64, 0.6)",
+                        "rgba(231, 233, 237, 0.6)",
+                      ],
+                      hoverBackgroundColor: [
+                        "rgba(255, 99, 132, 0.9)",
+                        "rgba(54, 162, 235, 0.9)",
+                        "rgba(255, 206, 86, 0.9)",
+                        "rgba(75, 192, 192, 0.9)",
+                        "rgba(153, 102, 255, 0.9)",
+                        "rgba(255, 159, 64, 0.9)",
+                        "rgba(231, 233, 237, 0.9)",
+                      ],
+                      borderWidth: 2,
+                      borderColor: "#FFFFFF",
+                    },
+                  ],
+                }}
+                options={{
+                  plugins: {
+                    legend: {
+                      position: "top",
+                      labels: {
+                        color: "#F7FAFC",
+                        font: {
+                          size: 14,
+                          family: "Inter, sans-serif",
+                          weight: "500",
+                        },
                       },
                     },
+                    tooltip: {
+                      enabled: true,
+                      backgroundColor: "#2D3748",
+                      titleColor: "#F7FAFC",
+                      bodyColor: "#F7FAFC",
+                      borderColor: "#4A5568",
+                      borderWidth: 1,
+                      cornerRadius: 6,
+                      padding: 12,
+                    },
                   },
-                  tooltip: {
-                    enabled: true,
-                    backgroundColor: "#2D3748",
-                    titleColor: "#F7FAFC",
-                    bodyColor: "#F7FAFC",
-                    borderColor: "#4A5568",
-                    borderWidth: 1,
-                    cornerRadius: 6,
-                    padding: 12,
+                  animation: {
+                    animateScale: true,
+                    animateRotate: true,
                   },
-                },
-                animation: {
-                  animateScale: true,
-                  animateRotate: true,
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-              }}
-            />
-          ) : (
-            <div className="flex items-center justify-center h-full">
-              <p className="text-gray-400 text-lg font-medium">
-                No driver data available.
-              </p>
-            </div>
-          )}
+                  responsive: true,
+                  maintainAspectRatio: false,
+                }}
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full">
+                <p className="text-gray-400 text-lg font-medium">
+                  No driver data available.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
         <div className="bg-gradient-to-b from-gray-900 to-gray-800 shadow-2xl hover:shadow-sm hover:shadow-blue-400 hover:scale-[1.02] transition-transform duration-300 ease-in-out cursor-pointer   rounded-2xl p-8 min-h-[250px]">
           <div className="w-full h-full min-h-[350px]">

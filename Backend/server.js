@@ -2402,3 +2402,41 @@ app.put("/api/user/profile", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// Set vehicle status to Inactive
+app.put("/api/vehicle/:vehicleid/set_inactive", async (req, res) => {
+  try {
+    const { vehicleid } = req.params;
+    const updateQuery = `UPDATE vehicles SET status = 'Inactive' WHERE vehicleid = $1 RETURNING *`;
+    const result = await con.query(updateQuery, [vehicleid]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Vehicle not found" });
+    }
+    res.json({
+      message: "Vehicle status set to Inactive",
+      vehicle: result.rows[0],
+    });
+  } catch (error) {
+    console.error("Error setting vehicle to inactive:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Set vehicle status to Active
+app.put("/api/vehicle/:vehicleid/set_active", async (req, res) => {
+  try {
+    const { vehicleid } = req.params;
+    const updateQuery = `UPDATE vehicles SET status = 'Active' WHERE vehicleid = $1 RETURNING *`;
+    const result = await con.query(updateQuery, [vehicleid]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Vehicle not found" });
+    }
+    res.json({
+      message: "Vehicle status set to Active",
+      vehicle: result.rows[0],
+    });
+  } catch (error) {
+    console.error("Error setting vehicle to active:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});

@@ -336,6 +336,37 @@ export default function Vehicle() {
     });
   };
 
+  // Dynamic label for idealmileage/range
+  const getMileageLabel = (fueltype) => {
+    if (fueltype === "Electric" || fueltype === "EV") return "Range (km)";
+    if (fueltype === "Petrol" || fueltype === "Diesel") return "Mileage (km/l)";
+    return "Mileage/Range";
+  };
+
+  // Add this handler to set vehicle status to Active
+  const handleUndoMaintenance = async (vehicleid) => {
+    setErr("");
+    setSuccess("");
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/vehicle/${vehicleid}/set_active`,
+        {
+          method: "PUT",
+        }
+      );
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Error updating vehicle status");
+      }
+      setSuccess("Vehicle status set to Active and ready for trips.");
+      getVehicleInfo();
+      setTimeout(() => setSuccess(null), 3000);
+    } catch (error) {
+      setErr(error.message || "Failed to update status");
+      setTimeout(() => setErr(null), 3000);
+    }
+  };
+
   return (
     <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-black  w-full  min-h-screen">
       <Navigation />
@@ -440,7 +471,7 @@ export default function Vehicle() {
                       className="block text-sm font-medium text-gray-300"
                       htmlFor="idealmileage"
                     >
-                      Mileage
+                      {getMileageLabel(formData.fueltype)}
                     </label>
                     <input
                       type="number"
@@ -451,6 +482,7 @@ export default function Vehicle() {
                       step={0.01}
                       className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"
                       required
+                      placeholder={getMileageLabel(formData.fueltype)}
                     />
                   </div>
                   <div>
@@ -570,7 +602,7 @@ export default function Vehicle() {
                       className="block text-sm font-medium text-gray-300"
                       htmlFor="edit_idealmileage"
                     >
-                      Mileage
+                      {getMileageLabel(editFormData.fueltype)}
                     </label>
                     <input
                       type="number"
@@ -581,6 +613,7 @@ export default function Vehicle() {
                       step={0.01}
                       className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500"
                       required
+                      placeholder={getMileageLabel(editFormData.fueltype)}
                     />
                   </div>
                   <div>
@@ -747,7 +780,6 @@ export default function Vehicle() {
                                 Maintenance
                               </button>
                               {status === "Inactive" &&
-                                // vehicle.status !== "Active" &&
                                 maintenanceform.vehicleid ===
                                   vehicle.vehicleid && (
                                   <form
@@ -840,6 +872,17 @@ export default function Vehicle() {
                                     </div>
                                   </form>
                                 )}
+                              {/* Undo Maintenance button for Under Maintenance vehicles */}
+                              {vehicle.status === "Under Maintenance" && (
+                                <button
+                                  className="ml-2 px-3 py-1 rounded bg-gray-500 text-white hover:bg-gray-600 transition hover:-translate-x-1"
+                                  onClick={() =>
+                                    handleUndoMaintenance(vehicle.vehicleid)
+                                  }
+                                >
+                                  Undo Maintenance
+                                </button>
+                              )}
                             </td>
                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
                               {vehicle.nextduedate === null

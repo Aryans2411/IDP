@@ -13,7 +13,7 @@ const ChatGPTClone = () => {
     setMessages([
       {
         role: "assistant",
-        content: "Hello! I'm your AI assistant. How can I help you today?",
+        content: "Hello! I'm RouteGenie. How can I help you today?",
       },
     ]);
   }, []);
@@ -80,6 +80,9 @@ const ChatGPTClone = () => {
 
       {/* Chat Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-blue-700/30 scrollbar-track-blue-900/20">
+        <h1 className="text-3xl font-bold text-center text-indigo-300 mb-6">
+          RouteGenie
+        </h1>
         {messages.map((message, index) => (
           <motion.div
             key={index}

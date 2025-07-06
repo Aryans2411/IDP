@@ -294,6 +294,8 @@ export default function Driver() {
                       name="phonenumber"
                       value={formData.phonenumber}
                       onChange={handleInputChange}
+                      pattern="^\+91-\d{10}$"
+                      title="Phone number must be in +91-xxxxxxxxxx format."
                       className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       required
                     />
@@ -388,6 +390,8 @@ export default function Driver() {
                       name="phonenumber"
                       value={editFormData.phonenumber}
                       onChange={handleEditInputChange}
+                      pattern="^\+91-\d{10}$"
+                      title="Phone number must be in +91-xxxxxxxxxx format."
                       className="mt-1 block w-full rounded-md bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       required
                     />

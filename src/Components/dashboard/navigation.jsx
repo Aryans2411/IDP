@@ -7,7 +7,7 @@ const initialNavigation = [
   { name: "Home", href: "/home", key: "home" },
   { name: "Vehicle", href: "/vehicle", key: "vehicle" },
   { name: "Driver", href: "/driver", key: "driver" },
-  { name: "Analytics", href: "/analytics", key: "analytics" },
+  { name: "DriveHealth", href: "/analytics", key: "analytics" },
   { name: "Trip", href: "/trip", key: "trip" },
   { name: "RouteGenie", href: "/databridgeai", key: "databridgeai" },
   { name: "EV Range Predictor", href: "/ev-range", key: "ev-range" },

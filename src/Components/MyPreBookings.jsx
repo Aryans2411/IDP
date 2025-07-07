@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from "../lib/utils.url.js";
 
 const MyPreBookings = () => {
     const [bookings, setBookings] = useState([]);
@@ -16,7 +17,7 @@ const MyPreBookings = () => {
 
     const fetchBookings = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/api/my-prebookings');
+            const response = await axios.get(`${API_BASE_URL}/api/my-prebookings`);
             console.log('Fetched bookings:', response.data);
             setBookings(response.data);
             
@@ -25,7 +26,7 @@ const MyPreBookings = () => {
             for (const booking of response.data) {
                 if (booking.status === 'pending') {
                     try {
-                        const queueResponse = await axios.get(`http://localhost:4000/api/queue/${booking.locationid}`);
+                        const queueResponse = await axios.get(`${API_BASE_URL}/api/queue/${booking.locationid}`);
                         queueData[booking.locationid] = queueResponse.data;
                     } catch (error) {
                         console.error('Error fetching queue info:', error);
@@ -44,7 +45,7 @@ const MyPreBookings = () => {
 
     const handleMarkArrived = async (bookingId) => {
         try {
-            await axios.post(`http://localhost:4000/api/prebook/${bookingId}/arrived`);
+            await axios.post(`${API_BASE_URL}/api/prebook/${bookingId}/arrived`);
             // Refresh bookings after marking as arrived
             fetchBookings();
         } catch (error) {

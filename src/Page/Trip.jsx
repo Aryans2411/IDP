@@ -1,6 +1,7 @@
 import React from "react";
 import Navigation from "../Components/dashboard/navigation";
 import Footer from "../Components/Footer/Footer";
+import API_BASE_URL from "../lib/utils.url.js";
 import {
   MapContainer,
   TileLayer,
@@ -115,7 +116,7 @@ export default function Trip() {
     setSuccess("");
 
     try {
-      const response = await fetch("http://localhost:4000/api/tripcompletion", {
+      const response = await fetch(`${API_BASE_URL}/api/tripcompletion`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -188,7 +189,7 @@ export default function Trip() {
 
   const getTripInfo = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/get_all_trips", {
+      const response = await fetch(`${API_BASE_URL}/api/get_all_trips`, {
         method: "GET",
       });
 
@@ -231,7 +232,7 @@ export default function Trip() {
 
     try {
       // console.log(formData);
-      const response = await fetch("http://localhost:4000/api/tripregistered", {
+      const response = await fetch(`${API_BASE_URL}/api/tripregistered`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -378,7 +379,7 @@ export default function Trip() {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/update_trip/${editingTrip.tripid}`,
+        `${API_BASE_URL}/api/update_trip/${editingTrip.tripid}`,
         {
           method: "PUT",
           headers: {

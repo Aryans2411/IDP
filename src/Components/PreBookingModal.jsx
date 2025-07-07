@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from "../lib/utils.url.js";
 
 const PreBookingModal = ({ isOpen, onClose, selectedLocation, onBookingSuccess }) => {
     const [vehicles, setVehicles] = useState([]);
@@ -23,7 +24,7 @@ const PreBookingModal = ({ isOpen, onClose, selectedLocation, onBookingSuccess }
                 return;
             }
 
-            const response = await axios.get(`http://localhost:4000/api/available-vehicles?locationid=${selectedLocation.id}`);
+            const response = await axios.get(`${API_BASE_URL}/api/available-vehicles?locationid=${selectedLocation.id}`);
             
             // Handle the new response structure
             setQueueStatus(response.data.queueStatus);
@@ -76,7 +77,7 @@ const PreBookingModal = ({ isOpen, onClose, selectedLocation, onBookingSuccess }
                 currentcharge: parseFloat(currentCharge)
             };
 
-            const response = await axios.post('http://localhost:4000/api/prebook', bookingData);
+            const response = await axios.post(`${API_BASE_URL}/api/prebook`, bookingData);
             
             setSuccess(`Booking successful! ETA: ${response.data.eta.toFixed(1)} minutes`);
             setSelectedVehicle('');

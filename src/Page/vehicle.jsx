@@ -1,6 +1,7 @@
 import Navigation from "../Components/dashboard/navigation";
 import Footer from "../Components/Footer/Footer";
 import "leaflet/dist/leaflet.css";
+import API_BASE_URL from "../lib/utils.url.js";
 import L from "leaflet";
 import { useState, useEffect } from "react";
 import {
@@ -95,7 +96,7 @@ export default function Vehicle() {
   const getVehicleInfo = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/api/get_all_vehicles",
+        `${API_BASE_URL}/api/get_all_vehicles`,
         {
           method: "GET",
         }
@@ -142,7 +143,7 @@ export default function Vehicle() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/maintenanceregister",
+        `${API_BASE_URL}/api/maintenanceregister`,
         {
           method: "POST",
           headers: {
@@ -190,7 +191,7 @@ export default function Vehicle() {
     try {
       console.log(formData);
       const response = await fetch(
-        "http://localhost:4000/api/vehicle_register",
+        `${API_BASE_URL}/api/vehicle_register`,
         {
           method: "POST",
           headers: {
@@ -279,7 +280,7 @@ export default function Vehicle() {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/update_vehicle/${editingVehicle.vehicleid}`,
+        `${API_BASE_URL}/api/update_vehicle/${editingVehicle.vehicleid}`,
         {
           method: "PUT",
           headers: {
@@ -349,7 +350,7 @@ export default function Vehicle() {
     setSuccess("");
     try {
       const response = await fetch(
-        `http://localhost:4000/api/vehicle/${vehicleid}/set_active`,
+        `${API_BASE_URL}/api/vehicle/${vehicleid}/set_active`,
         {
           method: "PUT",
         }

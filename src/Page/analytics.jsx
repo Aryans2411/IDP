@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Navigation from "../Components/dashboard/navigation";
 import Footer from "../Components/Footer/Footer";
-
+import API_BASE_URL from "../lib/utils.url.js";
 export default function Analytics() {
   const [formData, setFormData] = useState({
     registrationnumber: "",
@@ -73,7 +73,7 @@ export default function Analytics() {
       const maintenanceDate = response.data.maintenance_date;
       setNextduedate(maintenanceDate);
       console.log(maintenanceDate, " ", registrationnumber);
-      await fetch("http://localhost:4000/api/set_maintenance_date", {
+      await fetch(`${API_BASE_URL}/api/set_maintenance_date`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

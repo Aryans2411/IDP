@@ -4,6 +4,7 @@ import Footer from "../Components/Footer/Footer";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import Lenis from "lenis";
 import { FaRupeeSign } from "react-icons/fa";
+import API_BASE_URL from "../lib/utils.url.js";
 
 import "lenis/dist/lenis.css";
 import {
@@ -122,7 +123,7 @@ export default function Home() {
   const drivernumber = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/api/get_totaldriver",
+        `${API_BASE_URL}/api/get_totaldriver`,
         {
           method: "GET",
         }
@@ -140,7 +141,7 @@ export default function Home() {
   const vehiclesnumber = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/api/get_totalvehicles",
+        `${API_BASE_URL}/api/get_totalvehicles`,
         {
           method: "GET",
         }
@@ -158,7 +159,7 @@ export default function Home() {
   const actvehicle = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/api/get_active_vehicle",
+        `${API_BASE_URL}/api/get_active_vehicle`,
         {
           method: "GET",
         }
@@ -175,7 +176,7 @@ export default function Home() {
 
   const getCost = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/get_totalcost", {
+      const response = await fetch(`${API_BASE_URL}/api/get_totalcost`, {
         method: "GET",
       });
       if (!response.ok) {
@@ -191,7 +192,7 @@ export default function Home() {
   const maintenance_vehicle = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/api/get_total_maintenance_vehicles",
+        `${API_BASE_URL}/api/get_total_maintenance_vehicles`,
         {
           method: "GET",
         }
@@ -208,7 +209,7 @@ export default function Home() {
 
   const getTripInfo = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/get_all_trips", {
+      const response = await fetch(`${API_BASE_URL}/api/get_all_trips`, {
         method: "GET",
       });
 
@@ -224,7 +225,7 @@ export default function Home() {
   };
 
   const getTotalRevenue = async () => {
-    const response = await fetch("http://localhost:4000/api/get_totalrevenue", {
+    const response = await fetch(`${API_BASE_URL}/api/get_totalrevenue`, {
       method: "GET",
     });
     if (!response.ok) {
@@ -239,7 +240,7 @@ export default function Home() {
   };
   const getcarbondata = async () => {
     const response = await fetch(
-      "http://localhost:4000/api/carbonemissiondata",
+      `${API_BASE_URL}/api/carbonemissiondata`,
       {
         method: "GET",
       }
@@ -306,7 +307,7 @@ export default function Home() {
 
   const get_driver_info = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/driver_cost", {
+      const response = await fetch(`${API_BASE_URL}/api/driver_cost`, {
         method: "GET",
       });
       if (!response.ok)
@@ -321,7 +322,7 @@ export default function Home() {
 
   const get_month_revenue = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/month_revenue", {
+      const response = await fetch(`${API_BASE_URL}/api/month_revenue`, {
         method: "GET",
       });
 
@@ -338,7 +339,7 @@ export default function Home() {
 
   const get_month_cost = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/month_cost", {
+      const response = await fetch(`${API_BASE_URL}/api/month_cost`, {
         method: "GET",
       });
 
@@ -355,7 +356,7 @@ export default function Home() {
 
   const get_monthly_maintenance = async () => {
     const response = await fetch(
-      "http://localhost:4000/api/vehicle_maintenance_cost",
+      `${API_BASE_URL}/api/vehicle_maintenance_cost`,
       {
         method: "GET",
       }

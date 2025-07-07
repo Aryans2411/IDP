@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "../Components/dashboard/navigation";
 import Footer from "../Components/Footer/Footer";
+import API_BASE_URL from "../lib/utils.url.js";
 
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -26,7 +27,7 @@ export default function Profile() {
   const fetchProfileData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:4000/api/user/profile");
+      const response = await fetch(`${API_BASE_URL}/api/user/profile`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch profile data");
@@ -61,7 +62,7 @@ export default function Profile() {
   const handleSave = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:4000/api/user/profile", {
+      const response = await fetch(`${API_BASE_URL}/api/user/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

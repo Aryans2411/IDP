@@ -3,6 +3,7 @@ import { FiSend } from "react-icons/fi";
 import { BsRobot, BsPerson } from "react-icons/bs";
 import { motion } from "framer-motion";
 import Navigation from "../Components/dashboard/navigation";
+import API_BASE_URL from "../lib/utils.url.js";
 
 const ChatGPTClone = () => {
   const [messages, setMessages] = useState([]);
@@ -27,7 +28,7 @@ const ChatGPTClone = () => {
     setInput("");
 
     try {
-      const response = await fetch("http://localhost:4000/api/processPrompt", {
+      const response = await fetch(`${API_BASE_URL}/api/processPrompt`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

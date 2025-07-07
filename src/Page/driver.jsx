@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "../Components/dashboard/navigation";
 import Footer from "../Components/Footer/Footer";
+import API_BASE_URL from "../lib/utils.url.js";
 export default function Driver() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [driveInfo, setDriveInfo] = useState([]);
@@ -30,7 +31,7 @@ export default function Driver() {
   const getDriverInfo = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/api/get_all_drivers",
+        `${API_BASE_URL}/api/get_all_drivers`,
         {
           method: "GET",
         }
@@ -63,7 +64,7 @@ export default function Driver() {
     setSuccess("");
     try {
       const response = await fetch(
-        "http://localhost:4000/api/driver_register",
+        `${API_BASE_URL}/api/driver_register`,
         {
           method: "POST",
           headers: {

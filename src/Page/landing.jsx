@@ -8,6 +8,7 @@ import { HoverEffect } from "../Components/ui/card-hover-effect";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import my_image from "../Components/assests/dashboard.png";
+import API_BASE_URL from "../lib/utils.url.js";
 import mimg from "../Components/assests/Screenshot 2025-02-07 010515.png";
 const stats = [
   {

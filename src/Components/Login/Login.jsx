@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { WavyBackground } from "../ui/wavy-background";
+import API_BASE_URL from "../../lib/utils.url.js";
 
 export function WavyBackgroundDemo() {
   return (
@@ -36,7 +37,7 @@ export const Login = () => {
     console.log("Attempting to send login data:", formData);
 
     try {
-      const response = await fetch("http://localhost:4000/formPost", {
+      const response = await fetch(`${API_BASE_URL}/formPost`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

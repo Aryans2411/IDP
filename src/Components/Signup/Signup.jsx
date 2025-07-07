@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../../lib/utils.url.js";
 
 export const Signup = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ export const Signup = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:4000/signUpPost", {
+      const response = await fetch(`${API_BASE_URL}/signUpPost`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

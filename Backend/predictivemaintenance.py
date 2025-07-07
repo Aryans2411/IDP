@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for React frontend
 
 # Load the trained model
-model_path = "/Users/aryansinha/IDP2/IDP-FLEET/Backend/hhmodel.pkl"
+model_path = "hhmodel.pkl"
 # model_path = "Backend\hhmodel.pkl" # Update to the correct path
 
 try:

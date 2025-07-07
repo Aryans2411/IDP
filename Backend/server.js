@@ -1,6 +1,7 @@
 import express from "express";
 import pkg from "pg";
 import path from "path";
+import { createClient } from '@supabase/supabase-js'
 // import Groq from "groq-sdk";
 import { fileURLToPath } from "url";
 import fs from "fs";
@@ -19,6 +20,12 @@ const API_KEY = process.env.GROQ_API_KEY;
 const groq = new Groq({
   apiKey: API_KEY,
 });
+
+
+const supabaseUrl = process.env.SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
+
 const con = new Client({
   host: "localhost",
   user: "postgres",
@@ -37,10 +44,11 @@ con.connect(async (err) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For parsing URL-encoded data
 
+// Update CORS for deployment (allow all origins)
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow requests from this origin
-    credentials: true, // Allow cookies and credentials
+    origin: true, // Allow all origins for deployment; restrict as needed
+    credentials: true,
   })
 );
 
@@ -2439,4 +2447,13 @@ app.put("/api/vehicle/:vehicleid/set_active", async (req, res) => {
     console.error("Error setting vehicle to active:", error);
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+// Place this after all API routes, before server listen
+const buildPath = path.join(__dirname, "build");
+app.use(express.static(buildPath));
+
+// Catch-all route: serve React's index.html for any non-API route
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
 });

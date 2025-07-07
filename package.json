@@ -48,6 +48,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "cp -r build ../Backend/build || xcopy build ..\\Backend\\build /E /I /Y",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -71,5 +72,6 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.17"
-  }
+  },
+  "homepage": "./Backend/build"
 }

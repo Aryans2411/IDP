@@ -17,7 +17,7 @@ const stats = [
   },
   {
     value: 48,
-    label: "Saved on maintenance costs with Fleetio",
+    label: "Saved on maintenance costs with DriveWise",
     company: "SMART WATT",
   },
   {

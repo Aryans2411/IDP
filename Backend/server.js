@@ -33,6 +33,7 @@ const con = new Client({
   port: process.env.POSTGRES_PORT || 5432,
   password: process.env.POSTGRES_PASS, // Replace with your actual password
   database: process.env.POSTGRES_NAME,
+  family:4
 });
 
 con.connect(async (err) => {

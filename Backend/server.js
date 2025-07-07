@@ -2315,7 +2315,7 @@ app.put("/api/update_trip/:tripid", async (req, res) => {
 });
 
 const server = app
-  .listen(port, () => {
+  .listen(port,'0.0.0.0', () => {
     console.log(`Server is listening on port ${port}`);
   })
   .on("error", (err) => {

@@ -28,7 +28,7 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 const con = new Client({
   // host: "localhost",
-  host: process.env.POSTGRES_HOST,
+  host: "db.otorgokvegtlursvwjkz.supabase.co",
   user: process.env.POSTGRES_USER,
   port: process.env.POSTGRES_PORT || 5432,
   password: process.env.POSTGRES_PASS, // Replace with your actual password

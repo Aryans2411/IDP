@@ -9,6 +9,7 @@ import Groq from "groq-sdk";
 import "dotenv/config";
 import bcrypt from "bcrypt";
 import cors from "cors";
+import dns from "dns";
 import { start } from "repl";
 import axios from "axios";
 const { Client } = pkg;
@@ -21,7 +22,9 @@ const groq = new Groq({
   apiKey: API_KEY,
 });
 
-
+dns.lookup(process.env.POSTGRES_HOST, (err, address, family) => {
+  console.log("DNS lookup:", address, family, err);
+});
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
@@ -32,8 +35,7 @@ const con = new Client({
   user: process.env.POSTGRES_USER,
   port: process.env.POSTGRES_PORT || 5432,
   password: process.env.POSTGRES_PASS, // Replace with your actual password
-  database: process.env.POSTGRES_NAME,
-  family:4
+  database: process.env.POSTGRES_NAME
 });
 
 con.connect(async (err) => {

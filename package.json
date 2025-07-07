@@ -48,7 +48,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "cp -r build ../Backend/build || xcopy build ..\\Backend\\build /E /I /Y",
+    "postbuild":  "mkdir -p ../Backend/build && cp -r build/* ../Backend/build/",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

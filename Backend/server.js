@@ -22,29 +22,33 @@ const groq = new Groq({
   apiKey: API_KEY,
 });
 
-dns.lookup(process.env.POSTGRES_HOST, (err, address, family) => {
-  console.log("DNS lookup:", address, family, err);
-});
-const supabaseUrl = process.env.SUPABASE_URL
-const supabaseKey = process.env.SUPABASE_KEY
-const supabase = createClient(supabaseUrl, supabaseKey)
-
-const con = new Client({
-  // host: "localhost",
-  host: "db.otorgokvegtlursvwjkz.supabase.co",
-  user: process.env.POSTGRES_USER,
-  port: process.env.POSTGRES_PORT || 5432,
-  password: process.env.POSTGRES_PASS, // Replace with your actual password
-  database: process.env.POSTGRES_NAME
-});
-
-con.connect(async (err) => {
+dns.lookup(process.env.POSTGRES_HOST, { family: 4 }, (err, address, family) => {
   if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected to database");
+    console.error("DNS IPv4 lookup failed:", err);
+    return;
   }
+  console.log("Resolved IPv4 address:", address);
+
+  const con = new Client({
+    host: address, // Use the IPv4 address
+    user: process.env.POSTGRES_USER,
+    port: process.env.POSTGRES_PORT || 5432,
+    password: process.env.POSTGRES_PASS,
+    database: process.env.POSTGRES_NAME
+  });
+
+  con.connect(async (err) => {
+    if (err) {
+      console.log("DB connect error:", err);
+    } else {
+      console.log("Connected to database");
+      // ... start your app here, or set a global variable for `con`
+    }
+  });
+
+  // ... rest of your app setup (routes, etc.) can go here
 });
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For parsing URL-encoded data
 

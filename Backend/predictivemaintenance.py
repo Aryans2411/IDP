@@ -63,12 +63,14 @@ def predict():
             maintenance_date_str = "No maintenance needed"
 
         # Prepare response
+        engine_condition = "Normal" if prediction == 0 else "Needs Maintenance"
         response = {
             'predicted_class': int(prediction),
             'probability': float(probability),
             'threshold': THRESHOLD,
             'days_to_maintenance': days_to_maintenance,
             'maintenance_date': maintenance_date_str,
+            'engine_condition': engine_condition,
         }
         print(response)
         return jsonify(response)

@@ -100,6 +100,12 @@ export default function Analytics() {
         <h1 className="text-5xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400 animate-fade-in">
           Predictive Maintenance Analysis
         </h1>
+        <p className="text-lg text-gray-300 mb-8 text-center">
+          Leverage predictive maintenance to anticipate and address potential
+          vehicle issues before they occur. Analyze key parameters and
+          maintenance history to minimize downtime, reduce costs, and ensure
+          optimal fleet performance.
+        </p>
 
         <form
           onSubmit={handleSubmit}

@@ -7,23 +7,23 @@ import Footer from "../Components/Footer/Footer";
 import { HoverEffect } from "../Components/ui/card-hover-effect";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
-import my_image from "../Components/assests/Screenshot 2025-02-07 010515.png";
+import my_image from "../Components/assests/dashboard.png";
 import mimg from "../Components/assests/Screenshot 2025-02-07 010515.png";
 const stats = [
   {
-    value: 83,
-    label: "Reduced time spent on inspections",
-    company: "STANLEY STEEMER.",
+    value: 91,
+    label: "Improved accuracy in EV range predictions",
+    company: "DriveWise Pilot Study",
   },
   {
-    value: 48,
-    label: "Saved on maintenance costs with DriveWise",
-    company: "SMART WATT",
+    value: 62,
+    label: "Reduction in average charger wait times",
+    company: "DriveWise Case Analysis",
   },
   {
-    value: 10,
-    label: "Reduced time spent on fleet reports",
-    company: "NEWKIRK ELECTRIC",
+    value: 38,
+    label: "Lower maintenance costs through predictive analytics",
+    company: "DriveWise Fleet Partners",
   },
 ];
 
@@ -57,39 +57,39 @@ export function CardHoverEffectDemo() {
 }
 export const projects = [
   {
-    title: "Fleet Ease",
+    title: "DriveWise Control Center",
     description:
-      "A smart fleet management system that streamlines driver and vehicle assignments, optimizing operations for business owners.",
+      "Unified dashboard for EV drivers and fleet managers, offering real-time insights into vehicle health, range, charger status, and fleet operations.",
     link: "#",
   },
   {
-    title: "Auto Assign",
+    title: "AI Range Prediction",
     description:
-      "An automated system that efficiently assigns drivers to vehicles, reducing manual effort and ensuring smooth fleet operations.",
+      "State-of-the-art AI models predict electric vehicle range in real-time, accounting for battery status, route, weather, and driving behavior for maximum accuracy.",
     link: "#",
   },
   {
-    title: "Smart Maintenance",
+    title: "Smart Pre-Booking",
     description:
-      "AI-driven maintenance predictions help fleet owners anticipate service needs, minimizing downtime and repair costs.",
+      "4-minute EV charger pre-booking with intelligent queue management—ensuring drivers spend less time waiting and fleets operate at peak efficiency.",
     link: "#",
   },
   {
-    title: "Fleet Dashboard",
+    title: "Predictive Maintenance",
     description:
-      "A real-time interactive dashboard providing insights into fleet performance, driver status, and maintenance schedules.",
+      "Data-driven engine, battery, and system diagnostics alert users and managers to potential issues before they cause downtime, optimizing maintenance schedules.",
     link: "#",
   },
   {
-    title: "Route Optimizer",
+    title: "Fleet Analytics & Reports",
     description:
-      "Advanced route optimization ensures efficient trip planning, reducing fuel costs and improving delivery times.",
+      "Custom analytics, trip summaries, cost tracking, and compliance status—all delivered through interactive, exportable reports for better business decisions.",
     link: "#",
   },
   {
-    title: "Compliance Tracker",
+    title: "Seamless API Integration",
     description:
-      "Automated compliance tracking for vehicles and drivers, ensuring regulatory requirements are met without hassle.",
+      "Integrated with OpenChargeMap and external telematics—enabling location-based charger info, live status, and data interoperability with existing enterprise tools.",
     link: "#",
   },
 ];
